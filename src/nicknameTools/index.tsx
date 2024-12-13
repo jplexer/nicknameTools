@@ -10,6 +10,12 @@ enum Mode {
   USER = "Just Username",
 }
 
+enum UsernameDisplayname {
+  DISPLAY = "Show Display/Nickname",
+  USERNAME = "Show Username (lowercase)",
+  BOTH = "Show Both",
+}
+
 export const styles = [
   `.nnt {
     color: var(--text-muted);
@@ -50,21 +56,37 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {
         try {
           const user = userOverride ?? message.author;
           const mentionPrefix = withMentionPrefix ? "@" : "";
-          const prefix = 
-          moonlight.getConfigOption<Mode>("nicknameTools", "prefix")
-          ?? "";
-          const mode =
-            moonlight.getConfigOption<Mode>("nicknameTools", "mode") 
-            ?? Mode.NICK_USER_BRACES;
           const differentColor = 
             moonlight.getConfigOption<boolean>("nicknameTools", "differentColor") 
             ?? true;
+          const mode =
+            moonlight.getConfigOption<Mode>("nicknameTools", "mode") 
+            ?? Mode.NICK_USER_BRACES;
+          const prefix = 
+            moonlight.getConfigOption<Mode>("nicknameTools", "prefix")
+            ?? "";
+          const usernameDisplayname =
+            moonlight.getConfigOption<UsernameDisplayname>("nicknameTools", "usernameEqualsDisplayname")
+            ?? UsernameDisplayname.DISPLAY;
+          
 
           if (isRepliedMessage) {
             return author.nick;
           }
+
           if (author.nick === user.username) {
-              return mentionPrefix + user.username;
+            return mentionPrefix + author.nick;
+          }
+
+          if (author.nick.toLowerCase() === user.username.toLowerCase()) {
+            switch (usernameDisplayname) {
+              case UsernameDisplayname.DISPLAY:
+                return mentionPrefix + author.nick;
+              case UsernameDisplayname.USERNAME:
+                return mentionPrefix + user.username;
+              case UsernameDisplayname.BOTH:
+                break;
+            }
           }
 
           function getFirstPart(mode: Mode) {
