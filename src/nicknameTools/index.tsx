@@ -11,8 +11,8 @@ enum Mode {
 }
 
 enum UsernameDisplayname {
-  DISPLAY = "Show Display/Nickname",
-  USERNAME = "Show Username (lowercase)",
+  DISPLAY = "Show Nickname",
+  USERNAME = "Show Username",
   BOTH = "Show Both",
 }
 
@@ -68,10 +68,20 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {
           const usernameDisplayname =
             moonlight.getConfigOption<UsernameDisplayname>("nicknameTools", "usernameEqualsDisplayname")
             ?? UsernameDisplayname.DISPLAY;
+            const replyUsername =
+            moonlight.getConfigOption<UsernameDisplayname>("nicknameTools", "reply")
+            ?? UsernameDisplayname.DISPLAY;
           
 
           if (isRepliedMessage) {
-            return author.nick;
+            switch (replyUsername) {
+              case UsernameDisplayname.DISPLAY:
+                return mentionPrefix + author.nick;
+              case UsernameDisplayname.USERNAME:
+                return mentionPrefix + user.username;
+              case UsernameDisplayname.BOTH:
+                break;
+            }
           }
 
           if (author.nick === user.username) {
