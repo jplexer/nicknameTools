@@ -55,10 +55,10 @@ export const webpackModules: ExtensionWebExports["webpackModules"] = {
           ?? "";
           const mode =
             moonlight.getConfigOption<Mode>("nicknameTools", "mode") 
-            ?? Mode.USER_NICK_BRACES;
+            ?? Mode.NICK_USER_BRACES;
           const differentColor = 
             moonlight.getConfigOption<boolean>("nicknameTools", "differentColor") 
-            ?? false;
+            ?? true;
 
           if (isRepliedMessage) {
             return author.nick;
