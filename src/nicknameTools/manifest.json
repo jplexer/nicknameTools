@@ -1,0 +1,41 @@
+{
+  "$schema": "https://moonlight-mod.github.io/manifest.schema.json",
+  "id": "nicknameTools",
+  "version": "1.0.0",
+  "apiLevel": 2,
+  "meta": {
+    "name": "Nickname Tools",
+    "tagline": "Toy around with nicknames",
+    "description": "Change the way nicknames are displayed in the chat",
+    "authors": ["JPlexer"],
+    "source": "https://github.com/jplexer/nicknameTools"
+  },
+  "settings": {
+    "differentColor": {
+      "name": "Different Color",
+      "description": "Let secondary name be a different color",
+      "type": "boolean",
+      "default": true
+    },
+    "mode": {
+      "name": "Mode",
+      "description": "Choose how to display the names",
+      "type": "select",
+      "options": [
+        "Nickname (Username)",
+        "Username (Nickname)",
+        "Nickname - Username",
+        "Username - Nickname",
+        "Just Nickname",
+        "Just Username"
+      ],
+      "default": "Nickname (Username)"
+    },
+    "prefix": {
+      "name": "Prefix",
+      "description": "Choose a prefix to add before the names",
+      "type": "string",
+      "default": ""
+    }
+  }
+}
