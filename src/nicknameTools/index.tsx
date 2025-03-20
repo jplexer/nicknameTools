@@ -26,8 +26,8 @@ export const patches: ExtensionWebExports["patches"] = [
   {
     find: '?"@":""',
     replace: {
-      match: /(?<=0,onClick:\i,onContextMenu:\i,children:).*?\}/,
-      replacement: '(require("nicknameTools_replaceNames").default(arguments[0])'
+      match:  /(?<=children:)\(\i\?"@":""\)\+\i(?=,|\})/,
+      replacement: 'require("nicknameTools_replaceNames").default(arguments[0])'
     }
   }
 ];
