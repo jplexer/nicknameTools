@@ -26,7 +26,7 @@ export const patches: ExtensionWebExports["patches"] = [
   {
     find: '?"@":""',
     replace: {
-      match:  /(?<=onContextMenu:\i,children:)\i\+\i/,
+      match: /(?<=onContextMenu:\i,children:)\i/,
       replacement: 'require("nicknameTools_replaceNames").default(arguments[0])'
     }
   }
